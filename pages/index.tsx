@@ -1,5 +1,7 @@
 import styles from '../styles/Home.module.scss'
 import stylesSections from '../styles/Sections.module.scss'
+import stylesButton from '../components/Button/Button.module.scss'
+
 import { useState } from "react"
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -9,6 +11,7 @@ import { Heading } from "../components/Heading/Heading";
 import { Text } from "../components/Text/Text";
 import { Filter } from "../components/Form/Filter";
 import { VacanciesList } from "../components/Vacancies/VacanciesList";
+import { Button } from "../components/Button/Button";
 import { FormRequest } from "../components/Form/FormRequest";
 
 import { useGetVacancies } from "../hooks/useGetVacancies";
@@ -98,7 +101,9 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
         console.log(router.query)
     }
 
-
+    const handleViewCountItems = () => {
+        setCount(prevState => prevState + defaultCountItems)
+    }
 
     return (
     <div className={styles.container}>
@@ -113,6 +118,11 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
           handlerValuePosition={handlerValuePosition}
         />
         <VacanciesList vacancies={filterVacancies}/>
+        <Button
+          className={stylesButton['vacansy-list__button']}
+          // disabled={!(((other.pages - page) * count) > (count)) }
+          onClick={handleViewCountItems}
+        >More vacancies</Button>
         <section className={stylesSections.request}>
           <Heading tag='h2'>Leave a request</Heading>
           <div className={stylesSections['request-wrapper']}>
