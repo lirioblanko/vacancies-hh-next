@@ -15,6 +15,10 @@
   grid-template-columns: 4fr 4fr 2fr;
   gap: 20px;
   margin: 4.5rem 0 24px;
+  @media (max-width: 991px) {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
   & .form-field__wrapper {
     display: flex;
     flex-direction: column;
@@ -25,6 +29,9 @@
     align-items: flex-end;
     padding-bottom: 1rem;
     justify-self: flex-end;
+    @media (max-width: 991px) {
+      justify-self: flex-start;
+    }
     & span {
       margin-right: .5rem;
     }

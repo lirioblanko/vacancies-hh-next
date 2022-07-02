@@ -7,10 +7,9 @@ import {api} from "../../services/Api";
 import { Heading } from "../Heading/Heading";
 import { Button } from "../Button/Button";
 import { Text } from "../Text/Text";
-import {object, string} from "prop-types";
 
 export const VacancyItem = (vacancy: VacancyProps ): JSX.Element => {
-    // debugger
+
     const [vacancyFull, setVacancyFull]: any = useState({})
     const [showAllDescription, setShowAllDescription] = useState(false)
 
@@ -21,7 +20,6 @@ export const VacancyItem = (vacancy: VacancyProps ): JSX.Element => {
     useEffect(() => {
         api.info.getVacancyById(vacancy.id)
             .then(data => {
-                // console.log(data)
                 setVacancyFull(data)
             })
             .catch(err => {
@@ -29,7 +27,6 @@ export const VacancyItem = (vacancy: VacancyProps ): JSX.Element => {
             })
     }, [])
 
-    console.log(vacancyFull.description)
     return (
         <>
             <div className={styles['vacansy-item']}>

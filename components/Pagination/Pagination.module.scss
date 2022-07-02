@@ -2,6 +2,7 @@
     margin: 1rem 0;
     padding: 0;
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     & li {
         list-style-type: none;

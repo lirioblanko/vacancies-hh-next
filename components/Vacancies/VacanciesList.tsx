@@ -12,7 +12,7 @@ export const VacanciesList = ({ vacancies = []}: VacanciesProps ): JSX.Element =
                     ? vacancies.map(vacancy => {
                         return <VacancyItem key={vacancy.id}{ ...vacancy}/>
                     })
-                    : <h4>404 ошибка</h4>
+                    : <h4>Извините, вакансий больше нет</h4>
             }
         </div>
     )

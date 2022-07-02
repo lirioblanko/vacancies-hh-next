@@ -3,7 +3,7 @@ import stylesSections from '../styles/Sections.module.scss'
 import stylesButton from '../components/Button/Button.module.scss'
 import stylesPagination from '../components/Pagination/Pagination.module.scss'
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import ReactPaginate from 'react-paginate'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -115,44 +115,43 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
     const handleViewCountItems = () => {
         setCount(prevState => prevState + defaultCountItems)
     }
-    // console.log(count)
-    // console.log(page)
-    console.log((pageCount - routerPage) * count)
-    // disabled={(((pageCount - routerPage) * count) < (count)) }
+
 
     return (
     <div className={styles.container}>
 
       <main className={styles.main}>
-        <Heading tag={'h1'}>List of vacancies</Heading>
-        <Filter
-            formsSchedule={formsSchedule}
-            valuePosition={valuePosition}
-            resetFilterForm={resetFilterForm}
-            handlerValueFilter={handlerValueFilter('schedule')}
-            handlerValuePosition={handlerValuePosition}
-        />
-        <VacanciesList vacancies={filterVacancies}/>
-        <ReactPaginate
-            className={stylesPagination.pagination}
-            previousLabel="Предыдущая"
-            nextLabel="Следующая"
-            pageCount={pageCount}
-            forcePage={routerPage-1}
-            onPageChange={handlePageClick}
-            previousLinkClassName={stylesPagination.btn}
-            nextLinkClassName={stylesPagination.btn}
-            disabledLinkClassName={stylesPagination.paginationDisabled}
-            activeClassName={stylesPagination.active}
-            breakLabel="..."
-            pageRangeDisplayed={3}
-            renderOnZeroPageCount={null}
-        />
-        <Button
-          className={stylesButton['vacansy-list__button']}
-          // disabled={(((pageCount - routerPage) * count) < (count)) }
-          onClick={handleViewCountItems}
-        >More vacancies</Button>
+        <section className={stylesSections.vacancies}>
+            <Heading tag={'h1'}>List of vacancies</Heading>
+            <Filter
+                formsSchedule={formsSchedule}
+                valuePosition={valuePosition}
+                resetFilterForm={resetFilterForm}
+                handlerValueFilter={handlerValueFilter('schedule')}
+                handlerValuePosition={handlerValuePosition}
+            />
+            <VacanciesList vacancies={filterVacancies}/>
+            <ReactPaginate
+                className={stylesPagination.pagination}
+                previousLabel="Предыдущая"
+                nextLabel="Следующая"
+                pageCount={pageCount}
+                forcePage={routerPage-1}
+                onPageChange={handlePageClick}
+                previousLinkClassName={stylesPagination.btn}
+                nextLinkClassName={stylesPagination.btn}
+                disabledLinkClassName={stylesPagination.paginationDisabled}
+                activeClassName={stylesPagination.active}
+                breakLabel="..."
+                pageRangeDisplayed={3}
+                renderOnZeroPageCount={null}
+            />
+            <Button
+              className={stylesButton['vacansy-list__button']}
+              // disabled={(((pageCount - routerPage) * count) < (count)) }
+              onClick={handleViewCountItems}
+            >More vacancies</Button>
+        </section>
         <section className={stylesSections.request}>
           <Heading tag='h2'>Leave a request</Heading>
           <div className={stylesSections['request-wrapper']}>
@@ -167,7 +166,6 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
           </div>
         </section>
       </main>
-
       <footer className={styles.footer}>
         <a
           href="https://github.com/lirioblanko"
