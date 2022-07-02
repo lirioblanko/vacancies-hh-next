@@ -1,0 +1,37 @@
+.vacancies,
+.request {
+  margin: 90px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.request-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 224px;
+  margin: 4.5rem 0;
+}
+
+.request-info {
+  & p {
+    max-width: 319px;
+    margin-bottom: 1rem;
+    &:first-of-type {
+      margin: 0 0 4.5rem 0;
+    }
+  }
+  & .contact {
+    display: flex;
+    color: var(--black);
+    font-family: var(--rubik-font-family);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 32px;
+    margin-bottom: 1rem;
+    &:last-of-type {
+      margin-bottom: 4.5rem;
+    }
+  }
+}
