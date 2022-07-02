@@ -1,21 +1,26 @@
 import styles from '../styles/Home.module.scss'
 import stylesSections from '../styles/Sections.module.scss'
+import { useState } from "react"
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { api } from "../services/Api";
 
 import { Heading } from "../components/Heading/Heading";
 import { Text } from "../components/Text/Text";
+import { Filter } from "../components/Form/Filter";
 import { VacanciesList } from "../components/Vacancies/VacanciesList";
 import { FormRequest } from "../components/Form/FormRequest";
 
+import { useGetVacancies } from "../hooks/useGetVacancies";
+
 import { VacanciesProps } from "../components/Vacancies/Vacancies.props";
 
-interface FormSchedule {
+interface IFormSchedule {
     id: string;
     name: string;
 }
 
-interface IVacanciesPage {
+export interface IVacanciesPage {
     arguments: null | unknown;
     found: number;
     page: number;
@@ -25,7 +30,7 @@ interface IVacanciesPage {
 
 interface HomeProps {
     vacanciesPage: IVacanciesPage;
-    formsSchedule: FormSchedule[];
+    formsSchedule: IFormSchedule[];
 }
 
 
@@ -42,15 +47,72 @@ const defaultCountItems = 5
 const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
 
     const vacancies = vacanciesPage.items
+    const [page, setPage] = useState(1)
+    const [count, setCount] = useState(defaultCountItems)
+    const [valuePosition, setValuePosition] = useState('');
+    const router = useRouter();
+
+    const {items: filterVacancies, refetch, isLoading, args} = useGetVacancies({...router.query, per_page: count}, vacancies)
+    // console.log(args.pages)
+
+    const handlerValuePosition = (e: any) => {
+        setValuePosition(e.target.value)
+    }
+    console.log(router.query)
+
+    const resetFilterForm = () => {
+        // debugger
+        setPage(0)
+        setCount(defaultCountItems)
+        setValuePosition('')
+
+        let newObject: Record<string, any> = {};
+        console.log(newObject)
+        console.log(router)
+        router.push({
+            pathname: '/',
+            query: {
+                page: 1,
+                ...newObject
+            }
+        },
+            undefined,
+            {shallow: true})
+        console.log(router.query)
+    }
+
+    const handlerValueFilter = (field: string) => (e: any) => {
+
+        // let newObject: Record<string, any> = {...router.query}
+        let newObject: Record<string, any> = {};
+        !e.target.value.trim() ?  delete newObject[field] : newObject[field] = e.target.value
+        console.log(newObject)
+        // setPage(0)
+        router.push({
+            pathname: '/',
+            query: {
+                page: 1,
+                ...newObject
+            }
+        })
+        console.log(router.query)
+    }
 
 
-  return (
+
+    return (
     <div className={styles.container}>
 
       <main className={styles.main}>
         <Heading tag={'h1'}>List of vacancies</Heading>
-        <VacanciesList vacancies={vacancies}/>
-
+        <Filter
+          formsSchedule={formsSchedule}
+          valuePosition={valuePosition}
+          resetFilterForm={resetFilterForm}
+          handlerValueFilter={handlerValueFilter('schedule')}
+          handlerValuePosition={handlerValuePosition}
+        />
+        <VacanciesList vacancies={filterVacancies}/>
         <section className={stylesSections.request}>
           <Heading tag='h2'>Leave a request</Heading>
           <div className={stylesSections['request-wrapper']}>

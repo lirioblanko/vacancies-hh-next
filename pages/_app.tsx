@@ -1,10 +1,16 @@
 import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import {
+    QueryClient,
+    QueryClientProvider,
+} from 'react-query'
+
+const queryClient = new QueryClient()
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-      <>
+      <QueryClientProvider client={queryClient}>
         <Head>
           <title>List of vacancies</title>
           <link key={1} rel="icon" href="/favicon.ico" />
@@ -14,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
         </Head>
         <Component {...pageProps} />
-      </>
+      </QueryClientProvider>
   )
 }
 
