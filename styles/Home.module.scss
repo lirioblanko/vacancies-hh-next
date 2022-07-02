@@ -3,15 +3,17 @@
 }
 
 .main {
-  max-width: calc(1196px + 48px);
+  max-width: calc(1196px + 3rem);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 1.5rem;
   min-height: 100vh;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  &_404 {
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .footer {
@@ -28,4 +30,7 @@
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+  & span {
+    margin-left: 1rem;
+  }
 }
