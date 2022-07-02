@@ -1,8 +1,10 @@
 import styles from '../styles/Home.module.scss'
 import stylesSections from '../styles/Sections.module.scss'
 import stylesButton from '../components/Button/Button.module.scss'
+import stylesPagination from '../components/Pagination/Pagination.module.scss'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import ReactPaginate from 'react-paginate'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { api } from "../services/Api";
@@ -17,6 +19,7 @@ import { FormRequest } from "../components/Form/FormRequest";
 import { useGetVacancies } from "../hooks/useGetVacancies";
 
 import { VacanciesProps } from "../components/Vacancies/Vacancies.props";
+
 
 interface IFormSchedule {
     id: string;
@@ -49,29 +52,27 @@ const defaultCountItems = 5
 
 const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
 
-    const vacancies = vacanciesPage.items
-    const [page, setPage] = useState(1)
+    const router = useRouter();
+    const routerPage = +router.query.page
+
+    const [page, setPage] = useState(0)
     const [count, setCount] = useState(defaultCountItems)
     const [valuePosition, setValuePosition] = useState('');
-    const router = useRouter();
+    const vacancies = vacanciesPage.items
 
-    const {items: filterVacancies, refetch, isLoading, args} = useGetVacancies({...router.query, per_page: count}, vacancies)
-    // console.log(args.pages)
+    const {items: filterVacancies, args} = useGetVacancies({...router.query, per_page: count}, vacancies)
+
+    const pageCount = args.pages - 1;
 
     const handlerValuePosition = (e: any) => {
         setValuePosition(e.target.value)
     }
-    console.log(router.query)
 
     const resetFilterForm = () => {
-        // debugger
         setPage(0)
         setCount(defaultCountItems)
         setValuePosition('')
-
         let newObject: Record<string, any> = {};
-        console.log(newObject)
-        console.log(router)
         router.push({
             pathname: '/',
             query: {
@@ -81,7 +82,6 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
         },
             undefined,
             {shallow: true})
-        console.log(router.query)
     }
 
     const handlerValueFilter = (field: string) => (e: any) => {
@@ -89,8 +89,7 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
         // let newObject: Record<string, any> = {...router.query}
         let newObject: Record<string, any> = {};
         !e.target.value.trim() ?  delete newObject[field] : newObject[field] = e.target.value
-        console.log(newObject)
-        // setPage(0)
+        setPage(0)
         router.push({
             pathname: '/',
             query: {
@@ -98,12 +97,28 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
                 ...newObject
             }
         })
-        console.log(router.query)
     }
+
+    /*** PAGINATION ***/
+
+    const handlePageClick = ({selected}: any) => {
+        router.push({
+            pathname: '/',
+            query: {
+                ...router.query,
+                page: selected + 1
+            }
+        })
+        setPage(selected)
+    };
 
     const handleViewCountItems = () => {
         setCount(prevState => prevState + defaultCountItems)
     }
+    // console.log(count)
+    // console.log(page)
+    console.log((pageCount - routerPage) * count)
+    // disabled={(((pageCount - routerPage) * count) < (count)) }
 
     return (
     <div className={styles.container}>
@@ -111,16 +126,31 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
       <main className={styles.main}>
         <Heading tag={'h1'}>List of vacancies</Heading>
         <Filter
-          formsSchedule={formsSchedule}
-          valuePosition={valuePosition}
-          resetFilterForm={resetFilterForm}
-          handlerValueFilter={handlerValueFilter('schedule')}
-          handlerValuePosition={handlerValuePosition}
+            formsSchedule={formsSchedule}
+            valuePosition={valuePosition}
+            resetFilterForm={resetFilterForm}
+            handlerValueFilter={handlerValueFilter('schedule')}
+            handlerValuePosition={handlerValuePosition}
         />
         <VacanciesList vacancies={filterVacancies}/>
+        <ReactPaginate
+            className={stylesPagination.pagination}
+            previousLabel="Предыдущая"
+            nextLabel="Следующая"
+            pageCount={pageCount}
+            forcePage={routerPage-1}
+            onPageChange={handlePageClick}
+            previousLinkClassName={stylesPagination.btn}
+            nextLinkClassName={stylesPagination.btn}
+            disabledLinkClassName={stylesPagination.paginationDisabled}
+            activeClassName={stylesPagination.active}
+            breakLabel="..."
+            pageRangeDisplayed={3}
+            renderOnZeroPageCount={null}
+        />
         <Button
           className={stylesButton['vacansy-list__button']}
-          // disabled={!(((other.pages - page) * count) > (count)) }
+          // disabled={(((pageCount - routerPage) * count) < (count)) }
           onClick={handleViewCountItems}
         >More vacancies</Button>
         <section className={stylesSections.request}>
