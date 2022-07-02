@@ -1,0 +1,37 @@
+.text {
+    font-style: normal;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+.s {
+    font-size: 14px;
+    line-height: 160%;
+}
+
+.m {
+    font-size: 1rem;
+    line-height: 22px;
+}
+
+.l {
+    font-size: 18px;
+    line-height: 28px;
+}
+
+.roboto {
+    font-family: var(--roboto-font-family);
+}
+
+.rubik {
+    font-family: var(--rubik-font-family);
+}
+
+.black {
+    color: var(--black);
+}
+
+.gray {
+    color: var(--gray-dark);
+}
