@@ -1,15 +1,14 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
+import { Heading } from "../components/Heading/Heading";
 
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome
-        </h1>
+        <Heading tag={'h1'}>List of vacancies</Heading>
       </main>
 
       <footer className={styles.footer}>

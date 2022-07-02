@@ -1,0 +1,43 @@
+.h1, .h2 {
+  font-family: var(--rubik-font-family);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 76px;
+  color: var(--black);
+  margin: 0;
+  padding: 0;
+}
+
+.h3 {
+  font-family: var(--roboto-font-family);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 36px;
+  color: var(--black);
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 991px) {
+  .h1, .h2 {
+    font-size: 48px;
+    line-height: 52px;
+  }
+  .h3 {
+    font-size: 26px;
+    line-height: 30px;
+  }
+}
+
+@media (max-width: 439px) {
+  .h1, .h2 {
+    font-size: 32px;
+    line-height: 38px;
+  }
+  .h3 {
+    font-size: 22px;
+    line-height: 26px;
+  }
+}
