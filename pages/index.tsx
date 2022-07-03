@@ -120,7 +120,10 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
     <div className={styles.container}>
       <main className={styles.main}>
         <section className={stylesSections.vacancies}>
-            <Heading tag={'h1'}>List of vacancies</Heading>
+            <div className={styles.row}>
+                <Heading tag={'h1'}>List of vacancies</Heading>
+                <Text tag='span' href='https://github.com/lirioblanko/vacancies-hh-next' font='rubik'>repository</Text>
+            </div>
             <Filter
                 formsSchedule={formsSchedule}
                 valuePosition={valuePosition}

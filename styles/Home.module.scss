@@ -16,6 +16,17 @@
   }
 }
 
+.row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  & a {
+    color: #E1523D;
+    font-size: 24px;
+  }
+}
+
 .footer {
   display: flex;
   flex: 1;
