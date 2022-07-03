@@ -53,7 +53,7 @@ const pageCount = 20;
 const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
 
     const router = useRouter();
-    const routerPage = +router.query.page
+    const routerPage = router.query?.page
 
     const [page, setPage] = useState(0)
     const [count, setCount] = useState(defaultCountItems)
@@ -137,10 +137,9 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
                 activeClassName={stylesPagination.active}
                 breakLabel="..."
                 pageRangeDisplayed={3}
-                renderOnZeroPageCount={null}
             />
             {
-                pageCount !== routerPage
+                pageCount !== page+1
                 ?
                     <Button
                         className={stylesButton['vacansy-list__button']}

@@ -18,7 +18,7 @@ interface FilterProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, 
     handlerValueFilter: any;
     handlerValuePosition: any;
     resetFilterForm: any;
-    filter: string;
+    // filter: string;
 }
 
 export interface FormFilter {

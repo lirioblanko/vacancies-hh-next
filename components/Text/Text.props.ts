@@ -1,6 +1,6 @@
 import {ButtonHTMLAttributes, DetailedHTMLProps, HTMLAttributes, ReactNode} from "react";
 
-export interface TextProps extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
+export interface TextProps {
     tag: 'p' | 'span';
     font?: 'roboto' | 'rubik';
     size?: 's' | 'm' | 'l';
@@ -8,4 +8,5 @@ export interface TextProps extends DetailedHTMLProps<HTMLAttributes<HTMLElement>
     href?: string,
     children?: ReactNode;
     className?: string;
+    dangerouslySetInnerHTML?: any
 }
