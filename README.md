@@ -1,7 +1,7 @@
 
 # List of vacancies
 
-[DEMO](https://vacancies-hh-next-git-dev-lirioblanko.vercel.app/)
+[DEMO](https://vacancies-hh-next.vercel.app/)
 
 Список вакансий получен по  HeadHunter API. 
 На странице отображены первые 5 вакансий. 

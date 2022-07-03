@@ -45,12 +45,18 @@
   font-size: 1rem;
   line-height: 1rem;
   border: none;
+  border-radius: 0;
   border-bottom: 1px solid var(--black);
   color: var(--gray-dark);
   padding: 1rem 0;
+  -webkit-appearance:none;
   &__wrapper {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+  }
+  &[name='filter'] {
+    position: relative;
   }
 }
 
@@ -62,3 +68,9 @@
 .select:focus-visible {
   outline: red auto 1px;
 }
+
+.select {
+  color: red;
+}
+
+

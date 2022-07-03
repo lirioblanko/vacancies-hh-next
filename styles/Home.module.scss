@@ -21,9 +21,18 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
   & a {
+    display: block;
     color: #E1523D;
     font-size: 24px;
+    @media (max-width: 767px) {
+      margin-top: 1rem;
+      font-size: 20px;
+    }
   }
 }
 
