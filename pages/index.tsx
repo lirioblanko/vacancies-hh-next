@@ -40,11 +40,15 @@ interface HomeProps {
 }
 
 export const getServerSideProps = async (ctx: any) => {
-    const vacanciesPage = await api.info.getAll(ctx.query)
-    const dictionaries = await api.info.getAllDictionaries()
-    const formsSchedule = dictionaries.schedule
+    try {
+        const vacanciesPage = await api.info.getAll(ctx.query)
+        const dictionaries = await api.info.getAllDictionaries()
+        const formsSchedule = dictionaries.schedule
 
-    return { props: {vacanciesPage, formsSchedule}}
+        return { props: {vacanciesPage, formsSchedule}}
+    } catch {
+        return { props: {vacanciesPage: null, formsSchedule: null}}
+        }
 }
 
 const defaultCountItems = 5
