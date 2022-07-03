@@ -4,7 +4,7 @@ import styles from "./Vacancies.module.scss";
 import { VacancyItem } from './VacansyItem'
 
 export const VacanciesList = ({ vacancies = []}: VacanciesProps ): JSX.Element => {
-
+    // console.log(vacancies.length)
     return (
         <div className={styles['vacansy-list']}>
             {

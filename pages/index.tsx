@@ -39,8 +39,7 @@ interface HomeProps {
     formsSchedule: IFormSchedule[];
 }
 
-
-export const getStaticProps = async (ctx: any) => {
+export const getServerSideProps = async (ctx: any) => {
     const vacanciesPage = await api.info.getAll(ctx.query)
     const dictionaries = await api.info.getAllDictionaries()
     const formsSchedule = dictionaries.schedule
@@ -49,6 +48,7 @@ export const getStaticProps = async (ctx: any) => {
 }
 
 const defaultCountItems = 5
+const pageCount = 20;
 
 const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
 
@@ -58,11 +58,8 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
     const [page, setPage] = useState(0)
     const [count, setCount] = useState(defaultCountItems)
     const [valuePosition, setValuePosition] = useState('');
-    const vacancies = vacanciesPage.items
 
-    const {items: filterVacancies, args} = useGetVacancies({...router.query, per_page: count}, vacancies)
-
-    const pageCount = args.pages - 1;
+    const {items: filterVacancies, args} = useGetVacancies({...router.query, per_page: count}, vacanciesPage)
 
     const handlerValuePosition = (e: any) => {
         setValuePosition(e.target.value)
@@ -86,7 +83,6 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
 
     const handlerValueFilter = (field: string) => (e: any) => {
 
-        // let newObject: Record<string, any> = {...router.query}
         let newObject: Record<string, any> = {};
         !e.target.value.trim() ?  delete newObject[field] : newObject[field] = e.target.value
         setPage(0)
@@ -116,10 +112,8 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
         setCount(prevState => prevState + defaultCountItems)
     }
 
-
     return (
     <div className={styles.container}>
-
       <main className={styles.main}>
         <section className={stylesSections.vacancies}>
             <Heading tag={'h1'}>List of vacancies</Heading>
@@ -136,7 +130,6 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
                 previousLabel="Предыдущая"
                 nextLabel="Следующая"
                 pageCount={pageCount}
-                forcePage={routerPage-1}
                 onPageChange={handlePageClick}
                 previousLinkClassName={stylesPagination.btn}
                 nextLinkClassName={stylesPagination.btn}
@@ -146,11 +139,20 @@ const Home = ({vacanciesPage, formsSchedule}: HomeProps): JSX.Element => {
                 pageRangeDisplayed={3}
                 renderOnZeroPageCount={null}
             />
-            <Button
-              className={stylesButton['vacansy-list__button']}
-              // disabled={(((pageCount - routerPage) * count) < (count)) }
-              onClick={handleViewCountItems}
-            >More vacancies</Button>
+            {
+                pageCount !== routerPage
+                ?
+                    <Button
+                        className={stylesButton['vacansy-list__button']}
+                        onClick={handleViewCountItems}
+                    >Показать еще</Button>
+                :
+                    <Button
+                        className={stylesButton['vacansy-list__button']}
+                        disabled ={true}
+                        onClick={handleViewCountItems}
+                    >Показать еще</Button>
+            }
         </section>
         <section className={stylesSections.request}>
           <Heading tag='h2'>Leave a request</Heading>

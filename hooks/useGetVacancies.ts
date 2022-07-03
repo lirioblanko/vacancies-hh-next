@@ -13,10 +13,6 @@ export const useGetVacancies = (params={}, vacanciesPage: IVacanciesPage) => {
         () => {
         // debugger
             return  api.info.getAll({...params
-                // page: page,
-                // per_page: count,
-                // schedule: schedule,
-                // ...(filter ? {schedule: filter} : {})
             })
         },
         {

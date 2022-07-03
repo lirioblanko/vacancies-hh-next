@@ -1,14 +1,23 @@
 import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
+import React from "react";
 import Head from 'next/head'
 import {
     QueryClient,
-    QueryClientProvider,
+    QueryClientProvider
 } from 'react-query'
 
-const queryClient = new QueryClient()
-
 function MyApp({ Component, pageProps }: AppProps) {
+
+const queryClient = new QueryClient({
+        defaultOptions: {
+            queries: {
+                refetchOnWindowFocus: false
+            }
+        }
+    }
+)
+
   return (
       <QueryClientProvider client={queryClient}>
         <Head>
