@@ -1,14 +1,14 @@
 
 # List of vacancies
 
-[DEMO](https://)
+[DEMO](https://vacancies-hh-next.vercel.app/)
 
 Список вакансий получен по  HeadHunter API. 
 На странице отображены первые 5 вакансий. 
 Реализована фильтрация с сохранением параметров в url. 
 Форма отправки данных с минимальной валидацией и сохранением данных в консоли.
 
-##Используемый стек:
+## Используемый стек:
 
 [Next.js](https://nextjs.org/) / 
 [Typescript](https://www.typescriptlang.org/)
