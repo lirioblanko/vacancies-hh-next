@@ -22,3 +22,5 @@
 [react-paginate](https://www.npmjs.com/package/react-paginate)
 
 [Classnames](https://www.npmjs.com/package/classnames)
+
+[React Loading Skeleton](https://www.npmjs.com/package/react-content-loader)
